@@ -130,7 +130,7 @@ fetch('http://127.0.0.1:10000/analyze', {
 ## 👨‍💻 Author
 
 **Ajijola Oluwafemi Blessing**  
-Cybersecurity Analyst | Web Developer | PhD Researcher
+Cybersecurity | Software | IT | Research
 
 - GitHub: [phemtech-solutions](https://github.com/oluwafemiab/ajijola.github.io)  
 - LinkedIn: [https://www.linkedin.com/in/ajijola-oluwafemi-ba839712a/)
