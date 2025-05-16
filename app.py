@@ -58,15 +58,6 @@ def analyze_csp():
         if not any(f['issue'].startswith("Missing") for f in result['findings']):
             result['findings'].append({'issue': "CSP looks good!", 'status': '✅'})
 
-        # 3. Add scoring and grade
-        score = 5
-        for f in result['findings']:
-            if f['status'] == '❌':
-                score -= 2
-            elif f['status'] == '⚠️':
-                score -= 1
-
-        # 3. Add scoring and grade
 # 3. Add scoring and grade
 score = 5
 for f in result['findings']:
