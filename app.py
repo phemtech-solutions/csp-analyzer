@@ -67,15 +67,16 @@ def analyze_csp():
                 score -= 1
 
         if score >= 5:
-            result['grade'] = 'A'
-        elif score >= 3:
-            result['grade'] = 'B'
-        elif score >= 1:
-            result['grade'] = 'C'
-        else:
-            result['grade'] = 'D'
+    	grade = 'A'
+	elif score >= 3:
+    	grade = 'B'
+	elif score >= 1:
+    	grade = 'C'
+	else:
+    	grade = 'D'
 
-        return jsonify(result)
+	result['grade'] = grade  # ✅ Put this BEFORE return
+	return jsonify(result)
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
