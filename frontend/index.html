@@ -96,7 +96,7 @@
 
         <input type="text" id="urlInput" placeholder="Enter website URL (e.g., github.com)" />
         <button onclick="analyzeCSP()">Analyze</button>
-
+<center><small>Authored by: Ajijola Oluwafemi Blessing</small></center>
         <div class="result" id="output" style="display:none;"></div>
     </div>
 
@@ -108,7 +108,7 @@
             output.innerHTML = '⏳ Analyzing...';
 
             try {
-                const res = await fetch('http://127.0.0.1:5000/analyze', {
+                const res = await fetch('https://csp-analyzer.onrender.com/analyze', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ url })
@@ -117,17 +117,16 @@
                 const data = await res.json();
 
                 output.innerHTML = `
-                    <strong>🔗 URL:</strong> ${data.url}<br/>
-                    <strong>🛡️ CSP:</strong>
-                    <pre>${data.csp || 'Not Found'}</pre>
-                    <strong>📋 Findings:</strong>
-                    <ul>`;
+  	 	<strong>🔗 URL:</strong> ${data.url}<br/>
+    		<strong>🛡️ CSP:</strong> <pre>${data.csp || 'Not Found'}</pre>
+    		<strong>🔍 Grade:</strong> <span style="color:blue">${data.grade || 'N/A'}</span><br/>
+    		<strong>📋 Findings:</strong>
+    		<ul>`;
 
                 data.findings.forEach(item => {
-                    let statusClass = item.status === '✅' ? 'good' :
-                                      item.status === '❌' ? 'bad' : 'warn';
-                    output.innerHTML += `<li class="${statusClass}">${item.status} ${item.issue}</li>`;
-                });
+    		let statusClass = item.status === '✅' ? 'good' : item.status === '❌' ? 'bad' : 'warn';
+    		output.innerHTML += `<li class="${statusClass}">${item.status} ${item.issue}</li>`;
+		});
 
                 output.innerHTML += '</ul>';
                 output.style.display = 'block';
