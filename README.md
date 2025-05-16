@@ -4,6 +4,14 @@ CSP Analyzer is a web-based tool that checks for the presence and quality of **C
 
 ---
 
+## 🚀 Live Demo
+
+🌐 **Try it Live:** [https://phemtech-solutions.github.io/csp-analyzer/](https://phemtech-solutions.github.io/csp-analyzer/)
+
+> Enter any website URL to view its CSP headers, get detailed feedback, and receive a security grade from A–D.
+
+---
+
 ## 🚀 Features
 
 - ✅ Detects missing or weak HTTP security headers:
