@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSP Analyzer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 60px auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        h2 {
+            text-align: center;
+            color: #222;
+            margin-bottom: 30px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #004c99;
+        }
+
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fb;
+            border-left: 5px solid #0066cc;
+            border-radius: 8px;
+        }
+
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow-x: auto;
+            background: #eaeaea;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .good { color: green; font-weight: bold; }
+        .bad { color: red; font-weight: bold; }
+        .warn { color: #e69500; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🔐 CSP Analyzer</h2>
+
+        <input type="text" id="urlInput" placeholder="Enter website URL (e.g., github.com)" />
+        <button onclick="analyzeCSP()">Analyze</button>
+
+        <div class="result" id="output" style="display:none;"></div>
+    </div>
+
+    <script>
+        async function analyzeCSP() {
+            const url = document.getElementById('urlInput').value;
+            const output = document.getElementById('output');
+            output.style.display = 'none';
+            output.innerHTML = '⏳ Analyzing...';
+
+            try {
+                const res = await fetch('http://127.0.0.1:5000/analyze', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url })
+                });
+
+                const data = await res.json();
+
+                output.innerHTML = `
+                    <strong>🔗 URL:</strong> ${data.url}<br/>
+                    <strong>🛡️ CSP:</strong>
+                    <pre>${data.csp || 'Not Found'}</pre>
+                    <strong>📋 Findings:</strong>
+                    <ul>`;
+
+                data.findings.forEach(item => {
+                    let statusClass = item.status === '✅' ? 'good' :
+                                      item.status === '❌' ? 'bad' : 'warn';
+                    output.innerHTML += `<li class="${statusClass}">${item.status} ${item.issue}</li>`;
+                });
+
+                output.innerHTML += '</ul>';
+                output.style.display = 'block';
+            } catch (err) {
+                output.innerHTML = `<span class="bad">❌ Error: ${err.message}</span>`;
+                output.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
+
