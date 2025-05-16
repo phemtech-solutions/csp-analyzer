@@ -67,6 +67,7 @@ def analyze_csp():
                 score -= 1
 
         # 3. Add scoring and grade
+# 3. Add scoring and grade
 score = 5
 for f in result['findings']:
     if f['status'] == '❌' and score > 0:
@@ -84,6 +85,7 @@ else:
     grade = 'D'
 
 result['grade'] = grade
+
 
 	return jsonify(result)
 
