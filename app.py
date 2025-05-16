@@ -40,7 +40,7 @@ def analyze_csp():
         for header, description in SECURITY_HEADERS.items():
             if header not in headers:
                 result['findings'].append({
-                    'issue': f'Missing {description} header ({header})',
+                    'issue': f"Missing {description} header ({header})",
                     'status': '❌'
                 })
 
@@ -48,19 +48,38 @@ def analyze_csp():
         if not csp:
             result['findings'].append({'issue': 'Missing CSP Header', 'status': '❌'})
         else:
-            if "'unsafe-inline'" in csp:
+            if "unsafe-inline" in csp:
                 result['findings'].append({'issue': "Uses 'unsafe-inline'", 'status': '❌'})
             if '*' in csp:
                 result['findings'].append({'issue': "Wildcard (*) used", 'status': '⚠️'})
             if 'default-src' not in csp:
                 result['findings'].append({'issue': "Missing default-src", 'status': '❌'})
-            if not any(f['issue'].startswith("Uses") or f['issue'].startswith("Missing") for f in result['findings']):
-                result['findings'].append({'issue': "CSP looks good!", 'status': '✅'})
+
+        if not any(f['issue'].startswith("Missing") for f in result['findings']):
+            result['findings'].append({'issue': "CSP looks good!", 'status': '✅'})
+
+        # 3. Add scoring and grade
+        score = 5
+        for f in result['findings']:
+            if f['status'] == '❌':
+                score -= 2
+            elif f['status'] == '⚠️':
+                score -= 1
+
+        if score >= 5:
+            result['grade'] = 'A'
+        elif score >= 3:
+            result['grade'] = 'B'
+        elif score >= 1:
+            result['grade'] = 'C'
+        else:
+            result['grade'] = 'D'
 
         return jsonify(result)
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))

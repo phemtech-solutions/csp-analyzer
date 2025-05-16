@@ -97,6 +97,7 @@
         <input type="text" id="urlInput" placeholder="Enter website URL (e.g., github.com)" />
         <button onclick="analyzeCSP()">Analyze</button>
 
+	<div id="grade" style="font-weight:bold; margin-top:10px;"></div>
         <div class="result" id="output" style="display:none;"></div>
     </div>
 
@@ -122,6 +123,8 @@
                     <pre>${data.csp || 'Not Found'}</pre>
                     <strong>📋 Findings:</strong>
                     <ul>`;
+
+		document.getElementById("grade").innerHTML = `🔎 Grade: <span style="color:blue">${data.grade}</span>`;
 
                 data.findings.forEach(item => {
                     let statusClass = item.status === '✅' ? 'good' :
