@@ -58,31 +58,29 @@ def analyze_csp():
         if not any(f['issue'].startswith("Missing") for f in result['findings']):
             result['findings'].append({'issue': "CSP looks good!", 'status': '✅'})
 
-# 3. Add scoring and grade
-score = 5
-for f in result['findings']:
-    if f['status'] == '❌' and score > 0:
-        score -= 1
-    elif f['status'] == '⚠️' and score > 0:
-        score -= 0.5
+        # 3. Add scoring and grade
+        score = 5
+        for f in result['findings']:
+            if f['status'] == '❌' and score > 0:
+                score -= 1
+            elif f['status'] == '⚠️' and score > 0:
+                score -= 0.5
 
-if score >= 4.5:
-    grade = 'A'
-elif score >= 3.5:
-    grade = 'B'
-elif score >= 2:
-    grade = 'C'
-else:
-    grade = 'D'
+        if score >= 4.5:
+            grade = 'A'
+        elif score >= 3.5:
+            grade = 'B'
+        elif score >= 2:
+            grade = 'C'
+        else:
+            grade = 'D'
 
-result['grade'] = grade
+        result['grade'] = grade
 
-
-	return jsonify(result)
+        return jsonify(result)
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
