@@ -105,7 +105,7 @@
             const url = document.getElementById('urlInput').value;
             const output = document.getElementById('output');
             output.style.display = 'block';
-            output.innerHTML = '⏳ Analyzing...';
+            output.innerHTML = '⏳ Analyzing...Please wait';
 
             try {
                 const res = await fetch('https://csp-analyzer.onrender.com/analyze', {
