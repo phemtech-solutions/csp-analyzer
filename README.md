@@ -2,7 +2,6 @@
 
 CSP Analyzer is a web-based tool that checks for the presence and quality of **Content-Security-Policy (CSP)** and other important HTTP security headers on any website. It identifies missing or risky configurations and assigns a security grade from **A to D**.
 
----
 
 ## 🚀 Live Demo
 
@@ -10,7 +9,6 @@ CSP Analyzer is a web-based tool that checks for the presence and quality of **C
 
 > Enter any website URL to view its CSP headers, get detailed feedback, and receive a security grade from A–D.
 
----
 
 ## 🚀 Features
 
@@ -30,7 +28,6 @@ CSP Analyzer is a web-based tool that checks for the presence and quality of **C
 - ✅ Shows detailed findings with emoji indicators: ✅ ⚠️ ❌
 - ✅ Fully offline-capable (runs locally on your machine)
 
----
 
 ## 🧰 Tech Stack
 
@@ -40,7 +37,6 @@ CSP Analyzer is a web-based tool that checks for the presence and quality of **C
 | Backend    | Python (Flask)         |
 | Deployment | Localhost              |
 
----
 
 ## 💻 Installation Guide (Run Locally)
 
@@ -50,7 +46,6 @@ CSP Analyzer is a web-based tool that checks for the presence and quality of **C
 - Git installed (or download ZIP)
 - Browser (Chrome, Firefox, etc.)
 
----
 
 ### 🔧 Backend Setup (Flask API)
 
@@ -72,7 +67,6 @@ python app.py
 
 🟢 The server will run at: `http://127.0.0.1:10000`
 
----
 
 ### 🖥️ Frontend Setup (Local)
 
@@ -92,7 +86,6 @@ fetch('http://127.0.0.1:10000/analyze', {
 # 4. Enter a domain like "example.com" and click SCAN.
 ```
 
----
 
 ## 🧠 How It Works
 
@@ -103,7 +96,6 @@ fetch('http://127.0.0.1:10000/analyze', {
 5. A grade is assigned based on the results
 6. The frontend displays findings and the grade
 
----
 
 ## 📊 Grading System
 
@@ -123,7 +115,6 @@ fetch('http://127.0.0.1:10000/analyze', {
 | 2.0 – 3.4   | C      |
 | Below 2.0  | D      |
 
----
 
 ## 💡 Future Enhancements
 
@@ -133,7 +124,6 @@ fetch('http://127.0.0.1:10000/analyze', {
 - Add CLI version of the tool
 - Visual dashboard for multiple scans
 
----
 
 ## 👨‍💻 Author
 
